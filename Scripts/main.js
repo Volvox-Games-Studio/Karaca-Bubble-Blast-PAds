@@ -1,10 +1,11 @@
 import * as pc from 'playcanvas';
+import * as settings from './settings'
 
 // create an application
 const canvas = document.getElementById('application');
 const app = new pc.Application(canvas);
-app.setCanvasResolution(pc.RESOLUTION_AUTO);
-app.setCanvasFillMode(pc.FILLMODE_FILL_WINDOW);
+app.setCanvasResolution(pc.RESOLUTION_FIXED, settings.WIDTH, settings.HEIGHT);
+app.setCanvasFillMode(pc.FILLMODE_KEEP_ASPECT);
 app.start();
 
 // create a camera
