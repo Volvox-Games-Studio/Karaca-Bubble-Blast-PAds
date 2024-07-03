@@ -14,3 +14,8 @@ This command will build the game into `dist` folder.
 ```
 npm run build
 ```
+
+# Extra
+- [API Docs](https://api.playcanvas.com/)
+- [User Manual](https://developer.playcanvas.com/user-manual/)
+- [Github Repository](https://github.com/playcanvas/engine)
