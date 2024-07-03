@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "build": "vite build",
+    "build": "vite build && vite preview",
     "host": "npx vite"
   },
   "devDependencies": {
