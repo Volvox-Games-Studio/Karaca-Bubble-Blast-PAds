@@ -1,0 +1,6 @@
+#PlayCanvas
+/dist
+/node_modules
+
+#MACOS
+*.DS_Store
