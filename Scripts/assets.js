@@ -11,7 +11,7 @@ export var fruitGunSprite;
 export function loadFruitGunSprite(app, callback)
 {
     sprites.loadTexture(app, 'fruit_gun.png', (texture) => {
-        fruitGunSprite = sprites.create(texture, 256, 256, new pc.Vec4(0, 0, 1, 1), sprites.ANCHOR_CENTER(), sprites.PIVOT_CENTER());
+        fruitGunSprite = sprites.create(texture, 1.5, 1.5, new pc.Vec4(0, 0, 1, 1), sprites.ANCHOR_CENTER(), sprites.PIVOT_CENTER());
 
         callback();
     });
@@ -20,12 +20,12 @@ export function loadFruitGunSprite(app, callback)
 export function loadFruitSprites(app, callback)
 {
     sprites.loadTexture(app, 'fruits.png', (texture) => {
-        const width = 128;
-        const height = 128;
+        const width = 1;
+        const height = 1;
         const uvz = 1 / 3;
         const uvw = 1 / 2;
-        const anchor = sprites.ANCHOR_TOP();
-        const pivot = sprites.PIVOT_TOP();
+        const anchor = sprites.ANCHOR_CENTER();
+        const pivot = sprites.PIVOT_CENTER();
     
         const testUv0 = new pc.Vec4(uvz * 0, uvw * 0, uvz, uvw);
         const sprite0 = sprites.create(texture, width, height, testUv0, anchor, pivot);

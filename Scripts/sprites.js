@@ -13,8 +13,8 @@ export function PIVOT_BOTTOM() {return new pc.Vec2(0.5, 0)}
 
 export function create(textureAsset, width, height, uv, anchor, pivot) {
     // Create a sprite entity
-    const sprite = new pc.Entity();
-    sprite.addComponent('element', {
+    const entity = new pc.Entity();
+    entity.addComponent('element', {
         type: pc.ELEMENTTYPE_IMAGE,
         anchor: anchor,
         pivot: pivot,
@@ -23,15 +23,11 @@ export function create(textureAsset, width, height, uv, anchor, pivot) {
         useInput: true
     });
 
-    // Position the sprite
-    sprite.setLocalPosition(0, 0, 0);
-    sprite.setLocalEulerAngles(0, 0, 0);
-
     // Set the texture
-    sprite.element.texture = textureAsset.resource;
-    sprite.element.rect = uv;
+    entity.element.texture = textureAsset.resource;
+    entity.element.rect = uv;
 
-    return sprite;
+    return entity;
 }
 
 export function loadTexture(app, textureUrl, callback) {

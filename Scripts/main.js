@@ -16,7 +16,9 @@ app.start();
 
 const touch = app.touch;
 
-touch.on(pc.EVENT_TOUCHMOVE, input.onTouchMove);
+touch.on(pc.EVENT_TOUCHSTART, (event) => input.onTouchStart(camera, event));
+touch.on(pc.EVENT_TOUCHMOVE, (event) => input.onTouchMove(camera, event));
+touch.on(pc.EVENT_TOUCHEND, input.onTouchEnd);
 
 // create a camera
 const camera = new pc.Entity();
@@ -50,9 +52,18 @@ assets.loadFruitGunSprite(app, () => {
 
 function start()
 {
-    const fruitGun = assets.fruitGunSprite;
-    fruitGun.addComponent('script');
-    fruitGun.script.create('fruitGun');
+    createFruitGun();
+}
 
-    screen.addChild(fruitGun);
+function createFruitGun()
+{
+    var entity = new pc.Entity();
+
+    entity.addComponent('script');
+    entity.script.create('fruitGun');
+    entity.addChild(assets.fruitGunSprite);
+
+    entity.script.fruitGun.setRoot(app.root);
+
+    app.root.addChild(entity);
 }
