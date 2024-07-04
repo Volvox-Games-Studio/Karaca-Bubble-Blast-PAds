@@ -1,5 +1,8 @@
 import * as pc from 'playcanvas';
 import * as settings from './settings'
+import * as assets from './assets'
+import * as input from './input'
+
 
 // create an application
 const canvas = document.getElementById('application');
@@ -11,12 +14,16 @@ app.setCanvasResolution(pc.RESOLUTION_FIXED, settings.WIDTH, settings.HEIGHT);
 app.setCanvasFillMode(pc.FILLMODE_KEEP_ASPECT);
 app.start();
 
+const touch = app.touch;
+
+touch.on(pc.EVENT_TOUCHMOVE, input.onTouchMove);
+
 // create a camera
 const camera = new pc.Entity();
 camera.addComponent('camera', {
     clearColor: new pc.Color(0.3, 0.3, 0.7),
     projection: pc.PROJECTION_ORTHOGRAPHIC,
-    orthoHeight: 5,
+    orthoHeight: settings.ORTHO_SIZE,
     nearClip: 0.1,
     farClip: 1000
 });
@@ -31,36 +38,21 @@ screen.addComponent('screen', {
 });
 app.root.addChild(screen);
 
-// Function to create and add a sprite to the screen
-function addSprite(textureUrl, x, y, width, height, uv) {
-    // Create a sprite entity
-    const sprite = new pc.Entity();
-    sprite.addComponent('element', {
-        type: pc.ELEMENTTYPE_IMAGE,
-        anchor: new pc.Vec4(0.5, 0.5, 0.5, 0.5),
-        pivot: new pc.Vec2(0.5, 0.5),
-        width: width,
-        height: height,
-        useInput: true
-    });
-
-    // Position the sprite
-    sprite.setLocalPosition(x, y, 0);
-
-    // Load the sprite texture
-    app.assets.loadFromUrl(textureUrl, 'texture', (err, asset) => {
-        if (!err) {
-            sprite.element.texture = asset.resource;
-            sprite.element.rect = uv;
-        }
-    });
-
-    // Add the sprite to the screen
-    screen.addChild(sprite);
-}
-
-addSprite('Assets/Desktop.png', -2, 1, 128, 128, new pc.Vec4(0, 0, 1, 1));
 
 window.addEventListener('resize', () => {
     app.resizeCanvas(canvas.width, canvas.height);
 });
+
+assets.loadFruitGunSprite(app, () => {
+    assets.loadFruitSprites(app, start);
+})
+
+
+function start()
+{
+    const fruitGun = assets.fruitGunSprite;
+    fruitGun.addComponent('script');
+    fruitGun.script.create('fruitGun');
+
+    screen.addChild(fruitGun);
+}
