@@ -46,10 +46,7 @@ FruitGun.prototype.shoot = function (index) {
     var entity = new pc.Entity();
 
     entity.addComponent('script');
-    entity.script.create('fruit', {
-        speed: 10
-    });
-    console.log(this.spawnPoint.getPosition())
+    entity.script.create('fruit');
     entity.setPosition(this.spawnPoint.getPosition());
     entity.script.fruit.setDirection(this.direction);
     entity.addChild(assets.fruitSprites[index].clone());
