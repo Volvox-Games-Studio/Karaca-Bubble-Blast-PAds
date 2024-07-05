@@ -53,6 +53,7 @@ assets.loadFruitGunSprite(app, () => {
 function start()
 {
     createFruitGun();
+    createFruitSpawner();
 }
 
 function createFruitGun()
@@ -65,5 +66,15 @@ function createFruitGun()
 
     entity.script.fruitGun.setRoot(app.root);
 
+    app.root.addChild(entity);
+}
+
+function createFruitSpawner()
+{
+    var entity = new pc.Entity();
+
+    entity.addComponent('script');
+    entity.script.create('fruitSpawner');
+    
     app.root.addChild(entity);
 }

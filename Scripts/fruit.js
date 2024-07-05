@@ -3,9 +3,10 @@ import * as pc from 'playcanvas';
 
 var Fruit = pc.createScript('fruit');
 
+Fruit.attributes.add('speed', { type: 'number', default: 0.0 });
+
 // Initialize function: called when the component is initialized
 Fruit.prototype.initialize = function () {
-    this.speed = 10;
     this.radius = 0.35;
 };
 
@@ -14,11 +15,6 @@ Fruit.prototype.update = function (dt) {
     this.updateWallCollision();
     this.updateMovement(dt);
 };
-
-
-Fruit.prototype.setDirection = function (direction) {
-    this.direction = direction;
-}
 
 
 Fruit.prototype.updateMovement = function (dt) {
