@@ -52,8 +52,10 @@ assets.loadFruitGunSprite(app, () => {
 
 function start()
 {
-    createFruitGun();
-    createFruitSpawner();
+    var fruitGun = createFruitGun();
+    var fruitSpawner = createFruitSpawner();
+
+    fruitGun.fruitSpawner = fruitSpawner;
 }
 
 function createFruitGun()
@@ -67,6 +69,8 @@ function createFruitGun()
     entity.script.fruitGun.setRoot(app.root);
 
     app.root.addChild(entity);
+
+    return entity.script.fruitGun;
 }
 
 function createFruitSpawner()
@@ -75,6 +79,9 @@ function createFruitSpawner()
 
     entity.addComponent('script');
     entity.script.create('fruitSpawner');
+    entity.script.fruitSpawner.root = app.root;
     
     app.root.addChild(entity);
+
+    return entity.script.fruitSpawner;
 }

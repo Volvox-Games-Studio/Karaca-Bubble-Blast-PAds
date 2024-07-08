@@ -7,11 +7,14 @@ Fruit.attributes.add('speed', { type: 'number', default: 0.0 });
 
 // Initialize function: called when the component is initialized
 Fruit.prototype.initialize = function () {
-    this.radius = 0.35;
+    this.scale = 1.2;
+    this.radius = this.scale * 0.35;
+    this.entity.setLocalScale(this.scale, this.scale, this.scale);
 };
 
 // Update function: called every frame
 Fruit.prototype.update = function (dt) {
+    this.updateFruitCollision();
     this.updateWallCollision();
     this.updateMovement(dt);
 };
@@ -19,6 +22,16 @@ Fruit.prototype.update = function (dt) {
 
 Fruit.prototype.updateMovement = function (dt) {
     this.entity.translate(this.direction.x * this.speed * dt, this.direction.y * this.speed * dt, 0);
+}
+
+Fruit.prototype.updateFruitCollision = function () {
+    if (!this.fruitCollisionEnabled) return;
+
+    var collidedFruit = this.fruitSpawner.collidedFruit(this);
+
+    if (typeof collidedFruit === 'undefined') return
+    
+    this.fruitSpawner.snapOrBounceFruit(this, collidedFruit);
 }
 
 Fruit.prototype.updateWallCollision = function () {
@@ -35,4 +48,13 @@ Fruit.prototype.updateWallCollision = function () {
     {
         this.direction.x *= -1;
     }
+}
+
+
+Fruit.prototype.isCollide = function (otherFruit) {
+    var a = this.entity.getPosition();
+    var b = otherFruit.entity.getPosition();
+    var distance = a.distance(b);
+
+    return distance <= (this.radius * 2) * 1;
 }

@@ -48,8 +48,10 @@ FruitGun.prototype.shoot = function (index) {
     entity.addComponent('script');
     entity.script.create('fruit');
     entity.setPosition(this.spawnPoint.getPosition());
+    entity.script.fruit.fruitCollisionEnabled = true;
     entity.script.fruit.speed = 10.0;
     entity.script.fruit.direction = this.direction;
+    entity.script.fruit.fruitSpawner = this.fruitSpawner;
     entity.addChild(assets.fruitSprites[index].clone());
     this.root.addChild(entity);
 }
