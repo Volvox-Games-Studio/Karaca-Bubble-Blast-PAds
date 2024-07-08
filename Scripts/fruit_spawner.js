@@ -2,6 +2,7 @@ import * as pc from 'playcanvas';
 import * as assets from './assets'
 import * as ease from './easing'
 import * as tween from './tween'
+import * as events from './events'
 import { waitNextFrame } from './async';
 
 
@@ -47,6 +48,8 @@ FruitSpawner.prototype.initialize = async function () {
         
         await this.pushNewRow(row)
     }
+
+    this.reloadFruitGun();
 };
 
 // Update function: called every frame
@@ -138,6 +141,7 @@ FruitSpawner.prototype.snapFruit = async function (fruit, i, j) {
 
     this.checkMatches(i, j);
     this.checkFalloff();
+    this.reloadFruitGun();
 }
 
 FruitSpawner.prototype.checkMatches = function (startI, startJ) {
@@ -271,4 +275,8 @@ FruitSpawner.prototype.pushNewRow = async function (row) {
             this.root.addChild(entity);
             this.fruits[0][j] = entity.script.fruit;
     }
+}
+
+FruitSpawner.prototype.reloadFruitGun = function () {
+    events.FRUIT_GUN.dispatchEvent(new CustomEvent('onReload'));
 }

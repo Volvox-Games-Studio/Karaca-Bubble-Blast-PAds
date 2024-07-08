@@ -2,6 +2,9 @@ import * as pc from 'playcanvas';
 import * as input from './input'
 import * as setting from './settings'
 import * as assets from './assets'
+import * as events from './events'
+import * as ease from './easing'
+import * as tween from './tween'
 
 
 var FruitGun = pc.createScript('fruitGun');
@@ -9,6 +12,7 @@ var FruitGun = pc.createScript('fruitGun');
 // Initialize function: called when the component is initialized
 FruitGun.prototype.initialize = function () {
     input.EVENTS.addEventListener('touchEnd', this.onTouchEnd.bind(this));
+    events.FRUIT_GUN.addEventListener('onReload', this.onReload.bind(this));
     this.entity.setPosition(0, -setting.ORTHO_SIZE + 2, 0);
     this.spawnPoint = new pc.Entity();
     this.entity.addChild(this.spawnPoint);
@@ -32,7 +36,11 @@ FruitGun.prototype.update = function (dt) {
 
 FruitGun.prototype.onTouchEnd = function () {
     this.shoot();
-}   
+}  
+
+FruitGun.prototype.onReload = function () {
+    this.loadNext();
+}
 
 
 FruitGun.prototype.loadNext = function () {
@@ -55,10 +63,20 @@ FruitGun.prototype.loadNext = function () {
 }
 
 FruitGun.prototype.shoot = function () {
+    if (typeof this.loadedFruit === 'undefined') return;
+
     this.loadedFruit.speed = 12.0;
     this.loadedFruit.direction = this.direction;
     this.loadedFruit.fruitCollisionEnabled = true;
-    this.loadNext();
+    this.loadedFruit = undefined;
+
+    var duration = 0.25;
+    var distance = 0.8;
+    var position = this.entity.getPosition();
+    var endPosition = new pc.Vec3(position.x - this.direction.x * distance, position.y - this.direction.y * distance, position.z);
+
+    tween.move(this.entity, endPosition, duration, ease.harmonicCirc);
+    tween.scale(this.entity, new pc.Vec3(1.2, 0.8, 1.0), duration, ease.harmonicCirc);
 }
 
 FruitGun.prototype.setRoot = function (root) {
@@ -66,5 +84,7 @@ FruitGun.prototype.setRoot = function (root) {
 }
 
 FruitGun.prototype.moveLoadedFruit = function (root) {
+    if (typeof this.loadedFruit === 'undefined') return;
+
     this.loadedFruit.entity.setPosition(this.spawnPoint.getPosition());
 }
