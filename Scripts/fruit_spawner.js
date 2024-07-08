@@ -1,16 +1,14 @@
 import * as pc from 'playcanvas';
 import * as assets from './assets'
+import * as ease from './easing'
+import * as tween from './tween'
+import { waitNextFrame } from './async';
 
 
 var FruitSpawner = pc.createScript('fruitSpawner');
 
 // Initialize function: called when the component is initialized
-FruitSpawner.prototype.initialize = function () {
-    var initialFruits = [
-        [0, 0, 0, 0, 0, 0, 1, 0],
-        [0, 0, 0, 0, 0, 0, 1, 0],
-    ];
-    
+FruitSpawner.prototype.initialize = async function () {    
     this.y = 8.0
     this.cellSize = 1;
     this.fruits = [
@@ -38,24 +36,16 @@ FruitSpawner.prototype.initialize = function () {
         [undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined],
         [undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined],
     ];
-    
-    for (let i = 0; i < initialFruits.length; i++) {
-        for (let j = 0; j < initialFruits[i].length; j++) {
-            var entity = new pc.Entity();
-            var index = initialFruits[i][j];
-            entity.addComponent('script');
-            entity.script.create('fruit');
-            entity.script.fruit.speed = 0;
-            entity.script.fruit.direction = new pc.Vec3(0, 0, 0);
-            entity.script.fruit.index = index;
-            entity.script.fruit.fruitSpawner = this;
-            entity.script.fruit.fruitCollisionEnabled = false;
-            entity.setPosition(this.gridToWorldPosition(i, j));
-            entity.addChild(assets.fruitSprites[index].clone());
-            
-            this.root.addChild(entity);
-            this.fruits[i][j] = entity.script.fruit;
-        }
+
+    var initialRows = [
+        [0, 1, 2, 3, 4, 0, 3, 5],
+        [3, 5, 4, 0, 0, 2, 1, 1]
+    ];
+
+    for (let i = initialRows.length - 1; i >= 0; i--) {
+        const row = initialRows[i];
+        
+        await this.pushNewRow(row)
     }
 };
 
@@ -139,11 +129,12 @@ FruitSpawner.prototype.snapOrBounceFruit = function (fruit, otherFruit) {
     this.snapFruit(fruit, i, j);
 }
 
-FruitSpawner.prototype.snapFruit = function (fruit, i, j) {
+FruitSpawner.prototype.snapFruit = async function (fruit, i, j) {
     this.fruits[i][j] = fruit;
     fruit.speed = 0.0;
     fruit.fruitCollisionEnabled = false;
-    fruit.entity.setPosition(this.gridToWorldPosition(i, j));
+
+    await tween.move(fruit.entity, this.gridToWorldPosition(i, j), 0.20, ease.outSine);
 
     this.checkMatches(i, j);
     this.checkFalloff();
@@ -220,5 +211,64 @@ FruitSpawner.prototype.checkFalloff = function () {
                 fruit.fall();
             }
         }
+    }
+}
+
+FruitSpawner.prototype.pushNewRow = async function (row) {
+    var currentTime = performance.now() / 1000;
+    var t = 0.0;
+    var flag = true;
+
+    while (flag)
+    {
+        var speed = 3.0;
+        var time = performance.now() / 1000;
+        var dt = time - currentTime;
+        currentTime = time;
+
+        t += dt * speed;
+
+        if (t > 1.0)
+        {
+            t = 1.0;
+            flag = false;
+        }
+
+        for (let i = 0; i < this.fruits.length; i++) {
+            for (let j = 0; j < this.fruits[i].length; j++) {
+                var fruit = this.fruits[i][j];
+
+                if (typeof fruit === 'undefined') continue;
+
+                var startPos = this.gridToWorldPosition(i, j);
+                var endPos = new pc.Vec3(startPos.x, startPos.y - 1, startPos.z);
+
+                const newPos = new pc.Vec3();
+                newPos.lerp(startPos, endPos, ease.outSine(t));
+
+                fruit.entity.setPosition(newPos);
+            }
+        }
+
+        await waitNextFrame();
+    }
+
+    this.fruits.unshift([undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined]);
+
+    for (let j = 0; j < row.length; j++) {
+        var entity = new pc.Entity();
+            var index = row[j];
+            entity.addComponent('script');
+            entity.script.create('fruit');
+            entity.script.fruit.speed = 0;
+            entity.script.fruit.direction = new pc.Vec3(0, 0, 0);
+            entity.script.fruit.index = index;
+            entity.script.fruit.fruitSpawner = this;
+            entity.script.fruit.fruitCollisionEnabled = false;
+            entity.setPosition(this.gridToWorldPosition(0, j));
+            entity.addChild(assets.fruitSprites[index].clone());
+            
+            this.root.addChild(entity);
+            this.fruits[0][j] = entity.script.fruit;
     }
 }
