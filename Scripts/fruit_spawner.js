@@ -39,8 +39,8 @@ FruitSpawner.prototype.initialize = async function () {
     ];
 
     var initialRows = [
-        [0, 1, 2, 3, 4, 0, 3, 5],
-        [3, 5, 4, 0, 0, 2, 1, 1]
+        [0, 1, 2, 3, 4, 5, 0, 0],
+        [0, 1, 2, 3, 4, 5, 0, 0]
     ];
 
     for (let i = initialRows.length - 1; i >= 0; i--) {

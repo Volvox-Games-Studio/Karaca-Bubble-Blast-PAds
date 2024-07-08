@@ -46,9 +46,11 @@ window.addEventListener('resize', () => {
 });
 
 assets.loadBackgroundSprites(app, () => {
-    assets.loadFruitGunSprite(app, () => {
-        assets.loadFruitSprites(app, start);
-    })    
+    assets.loadFruitSprites(app, () => {
+        assets.loadFruitGunSprite(app, () => {
+            assets.loadFruitPop(app, start);
+        })  
+    })  
 })
 
 function start()

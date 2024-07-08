@@ -9,7 +9,17 @@ export const fruitSprites = [];
 export var backgroundSprite;
 export var gridBackgroundSprite;
 export var fruitGunSprite;
+export var fruitPopSprite;
 
+
+export function loadFruitPop(app, callback)
+{
+    sprites.loadTexture(app, 'fruit_pops.png', (texture) => {
+        fruitPopSprite = sprites.create(texture, 1, 1, new pc.Vec4(0, 0, 1, 1), sprites.ANCHOR_CENTER(), sprites.PIVOT_CENTER());
+
+        callback();
+    });
+}
 
 export function loadBackgroundSprites(app, callback)
 {
@@ -21,7 +31,7 @@ export function loadBackgroundSprites(app, callback)
         gridBackgroundSprite = sprites.create(texture, 1941 * gridScale * 1.02, 2724 * gridScale * 1.18, new pc.Vec4(0.5, 0.0, 0.47388, 0.66504), sprites.ANCHOR_CENTER(), sprites.PIVOT_CENTER());
 
         callback();
-    })
+    });
 }
 
 export function loadFruitGunSprite(app, callback)

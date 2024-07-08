@@ -67,6 +67,14 @@ Fruit.prototype.isCollide = function (otherFruit) {
 }
 
 Fruit.prototype.pop = function () {
+    var entity = new pc.Entity();
+
+    entity.setPosition(this.entity.getPosition());
+    entity.addComponent('script');
+    entity.script.create('fruitPop');
+    entity.script.fruitPop.animate(this.index);
+    this.app.root.addChild(entity);
+
     this.entity.destroy();
 }
 

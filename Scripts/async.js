@@ -3,3 +3,7 @@ export function waitNextFrame() {
         requestAnimationFrame(() => resolve());
     });
 }
+
+export function waitForSeconds(seconds) {
+    return new Promise(resolve => setTimeout(resolve, seconds * 1000));
+}
