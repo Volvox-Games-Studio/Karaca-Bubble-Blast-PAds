@@ -45,6 +45,7 @@ FruitGun.prototype.shoot = function (index) {
     entity.script.create('fruit');
     entity.setPosition(this.spawnPoint.getPosition());
     entity.script.fruit.fruitCollisionEnabled = true;
+    entity.script.fruit.index = index;
     entity.script.fruit.speed = 12.0;
     entity.script.fruit.direction = this.direction;
     entity.script.fruit.fruitSpawner = this.fruitSpawner;
