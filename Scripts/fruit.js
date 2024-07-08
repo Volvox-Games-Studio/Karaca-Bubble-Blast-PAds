@@ -44,7 +44,7 @@ Fruit.prototype.updateWallCollision = function () {
     var position = this.entity.getPosition();
     var xMin = position.x - this.radius;
     var xMax = position.x + this.radius;
-    var border = 4.5
+    var border = 4.3
 
     if (xMin < -border && this.direction.x < 0)
     {
