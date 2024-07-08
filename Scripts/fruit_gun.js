@@ -12,10 +12,6 @@ FruitGun.prototype.initialize = function () {
     this.entity.setPosition(0, -setting.ORTHO_SIZE + 1, 0);
     this.spawnPoint = new pc.Entity();
     this.entity.addChild(this.spawnPoint);
-    this.spawnPoint.addComponent('model', {
-        type: 'box'
-    })
-    this.spawnPoint.setLocalScale(0.1, 0.1, 0.1);
     this.spawnPoint.setLocalPosition(0, 1, 0);
     this.fruitIndices = [0, 1, 2, 3, 4, 5]
     this.shootIndex = 0;
@@ -49,7 +45,7 @@ FruitGun.prototype.shoot = function (index) {
     entity.script.create('fruit');
     entity.setPosition(this.spawnPoint.getPosition());
     entity.script.fruit.fruitCollisionEnabled = true;
-    entity.script.fruit.speed = 10.0;
+    entity.script.fruit.speed = 12.0;
     entity.script.fruit.direction = this.direction;
     entity.script.fruit.fruitSpawner = this.fruitSpawner;
     entity.addChild(assets.fruitSprites[index].clone());

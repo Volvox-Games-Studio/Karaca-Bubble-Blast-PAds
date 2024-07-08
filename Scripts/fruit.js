@@ -38,13 +38,14 @@ Fruit.prototype.updateWallCollision = function () {
     var position = this.entity.getPosition();
     var xMin = position.x - this.radius;
     var xMax = position.x + this.radius;
+    var border = 4.5
 
-    if (xMin < -4.6 && this.direction.x < 0)
+    if (xMin < -border && this.direction.x < 0)
     {
         this.direction.x *= -1;
     }
 
-    else if (xMax > 4.6 && this.direction.x > 0)
+    else if (xMax > border && this.direction.x > 0)
     {
         this.direction.x *= -1;
     }

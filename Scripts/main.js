@@ -45,17 +45,34 @@ window.addEventListener('resize', () => {
     app.resizeCanvas(canvas.width, canvas.height);
 });
 
-assets.loadFruitGunSprite(app, () => {
-    assets.loadFruitSprites(app, start);
+assets.loadBackgroundSprites(app, () => {
+    assets.loadFruitGunSprite(app, () => {
+        assets.loadFruitSprites(app, start);
+    })    
 })
-
 
 function start()
 {
+    createBackground();
+
     var fruitGun = createFruitGun();
     var fruitSpawner = createFruitSpawner();
 
     fruitGun.fruitSpawner = fruitSpawner;
+}
+
+function createBackground()
+{
+    var background = new pc.Entity();
+    var gridBackground =  new pc.Entity();
+
+    background.addChild(assets.backgroundSprite);
+    gridBackground.addChild(assets.gridBackgroundSprite);
+
+    gridBackground.setPosition(-0.05, 1.55, 0);
+
+    app.root.addChild(background);
+    app.root.addChild(gridBackground);
 }
 
 function createFruitGun()

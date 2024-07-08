@@ -31,7 +31,7 @@ export function create(textureAsset, width, height, uv, anchor, pivot) {
 }
 
 export function loadTexture(app, textureUrl, callback) {
-    app.assets.loadFromUrl('Assets/' + textureUrl, 'texture', (err, texture) => {
+    app.assets.loadFromUrl('assets/' + textureUrl, 'texture', (err, texture) => {
         if (!err) {
             callback(texture);
         } else {
