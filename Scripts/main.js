@@ -59,6 +59,7 @@ function start()
     var fruitSpawner = createFruitSpawner();
 
     fruitGun.fruitSpawner = fruitSpawner;
+    fruitGun.loadNext();
 }
 
 function createBackground()

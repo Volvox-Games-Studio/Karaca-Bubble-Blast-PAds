@@ -27,7 +27,8 @@ export function loadBackgroundSprites(app, callback)
 export function loadFruitGunSprite(app, callback)
 {
     sprites.loadTexture(app, 'fruit_gun.png', (texture) => {
-        fruitGunSprite = sprites.create(texture, 1.5, 1.5, new pc.Vec4(0, 0, 1, 1), sprites.ANCHOR_CENTER(), sprites.PIVOT_CENTER());
+        fruitGunSprite = sprites.create(texture, 3, 3, new pc.Vec4(0, 0, 1, 1), sprites.ANCHOR_CENTER(), sprites.PIVOT_CENTER());
+        fruitGunSprite.element.drawOrder = 100;
 
         callback();
     });
