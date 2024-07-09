@@ -6,15 +6,27 @@ import * as input from './input'
 
 // create an application
 const canvas = document.getElementById('application');
+const dummyApp = new pc.Application(canvas, {
+    mouse: new pc.Mouse(canvas),
+    touch: new pc.TouchDevice(canvas)
+});
+dummyApp.setCanvasResolution(pc.RESOLUTION_AUTO);
+dummyApp.setCanvasFillMode(pc.FILLMODE_FILL_WINDOW);
+
+var width = canvas.clientWidth;
+var height = canvas.clientHeight;
+
+settings.setAspectRatio(width / height);
+
 const app = new pc.Application(canvas, {
     mouse: new pc.Mouse(canvas),
     touch: new pc.TouchDevice(canvas)
 });
-app.setCanvasResolution(pc.RESOLUTION_AUTO);
-app.setCanvasFillMode(pc.FILLMODE_FILL_WINDOW);
+app.setCanvasResolution(pc.RESOLUTION_FIXED, settings.WIDTH, settings.HEIGHT);
+app.setCanvasFillMode(pc.FILLMODE_KEEP_ASPECT);
 app.start();
 
-settings.setSize(canvas.clientWidth, canvas.clientHeight);
+settings.setSize(width, height);
 
 const touch = app.touch;
 
