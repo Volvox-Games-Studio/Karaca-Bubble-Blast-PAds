@@ -10,9 +10,11 @@ const app = new pc.Application(canvas, {
     mouse: new pc.Mouse(canvas),
     touch: new pc.TouchDevice(canvas)
 });
-app.setCanvasResolution(pc.RESOLUTION_FIXED, settings.WIDTH, settings.HEIGHT);
-app.setCanvasFillMode(pc.FILLMODE_KEEP_ASPECT);
+app.setCanvasResolution(pc.RESOLUTION_AUTO);
+app.setCanvasFillMode(pc.FILLMODE_FILL_WINDOW);
 app.start();
+
+settings.setSize(canvas.clientWidth, canvas.clientHeight);
 
 const touch = app.touch;
 

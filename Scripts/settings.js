@@ -1,4 +1,14 @@
-export const WIDTH = 1290;
-export const HEIGHT = 2796
-export const ASPECT_RATIO = WIDTH / HEIGHT;
 export const ORTHO_SIZE = 10;
+
+
+export var WIDTH;
+export var HEIGHT;
+export var ASPECT_RATIO;
+
+
+export function setSize(width, heigth)
+{
+    WIDTH = width;
+    HEIGHT = heigth;
+    ASPECT_RATIO = WIDTH / HEIGHT;
+}
