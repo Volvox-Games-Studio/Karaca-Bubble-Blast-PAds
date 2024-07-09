@@ -24,8 +24,8 @@ export function loadFruitPop(app, callback)
 export function loadBackgroundSprites(app, callback)
 {
     sprites.loadTexture(app, 'backgrounds.png', (texture) => {
-        var backgroundScale = 1.6 * settings.ORTHO_SIZE / settings.HEIGHT;
-        var gridScale = 1.3 * settings.ORTHO_SIZE / settings.HEIGHT;
+        var backgroundScale = 0.01;
+        var gridScale = 0.0048;
 
         backgroundSprite = sprites.create(texture, 2046 * backgroundScale, 3634 * backgroundScale, new pc.Vec4(0, 0, 0.4995, 0.8872), sprites.ANCHOR_CENTER(), sprites.PIVOT_CENTER());
         gridBackgroundSprite = sprites.create(texture, 1941 * gridScale * 1.02, 2724 * gridScale * 1.18, new pc.Vec4(0.5, 0.0, 0.47388, 0.66504), sprites.ANCHOR_CENTER(), sprites.PIVOT_CENTER());
