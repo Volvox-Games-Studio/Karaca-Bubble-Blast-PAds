@@ -19,3 +19,4 @@ npm run build
 - [API Docs](https://api.playcanvas.com/)
 - [User Manual](https://developer.playcanvas.com/user-manual/)
 - [Github Repository](https://github.com/playcanvas/engine)
+- [PNG Optimizer](https://tiny-img.com/png-compressor/)
