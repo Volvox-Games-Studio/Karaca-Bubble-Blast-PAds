@@ -16,4 +16,11 @@
             <canvas id="application" width=1290 height=2796></canvas>
         </div>
     </body>
+    <script type="text/javascript">
+        window.FBPlayableOnCTAClick = () => { 
+          (typeof FbPlayableAd === 'undefined')
+            ? alert('FBPlayableAd.onCTAClick') 
+            : FbPlayableAd.onCTAClick();
+        }
+    </script>
 </html>

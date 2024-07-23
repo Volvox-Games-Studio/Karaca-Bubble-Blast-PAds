@@ -4,6 +4,9 @@ import * as assets from './assets'
 import * as input from './input'
 
 
+// satisfy facebook
+window.FBPlayableOnCTAClick();
+
 // create an application
 const canvas = document.getElementById('application');
 const dummyApp = new pc.Application(canvas, {
