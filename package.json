@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "build": "vite build",
+    "build": "vite build && node post_build.js",
     "preview": "vite preview",
     "host": "npx vite"
   },
