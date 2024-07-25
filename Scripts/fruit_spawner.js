@@ -39,8 +39,20 @@ FruitSpawner.prototype.initialize = async function () {
     ];
 
     var initialRows = [
-        [0, 1, 2, 3, 4, 5, 0, 0],
-        [0, 1, 2, 3, 4, 5, 0, 0]
+        [0, undefined, undefined, undefined, undefined, undefined, undefined, 0],
+        [1, undefined, undefined, undefined, undefined, undefined, undefined, 1],
+        [2, undefined, undefined, undefined, undefined, undefined, undefined, 2],
+        [3, undefined, undefined, undefined, undefined, undefined, undefined, 3],
+        [4, undefined, undefined, undefined, undefined, undefined, undefined, 4]
+    ];
+
+    this.queue = [
+        [4, 4, 4, undefined, undefined, 4, 4, 4],
+        [4, 4, 4, undefined, undefined, 4, 4, 4],
+        [3, 3, 3, undefined, undefined, 3, 3, 3],
+        [2, 2, 2, undefined, undefined, undefined, 2, 2],
+        [1, 1, undefined, undefined, undefined, undefined, 1, 1],
+        [0, 0, undefined, undefined, undefined, undefined, undefined, 0]
     ];
 
     for (let i = initialRows.length - 1; i >= 0; i--) {
@@ -141,6 +153,9 @@ FruitSpawner.prototype.snapFruit = async function (fruit, i, j) {
 
     this.checkMatches(i, j);
     this.checkFalloff();
+
+    await this.pushNextRowFromQueue();
+
     this.reloadFruitGun();
 }
 
@@ -218,6 +233,14 @@ FruitSpawner.prototype.checkFalloff = function () {
     }
 }
 
+FruitSpawner.prototype.pushNextRowFromQueue = async function () {
+    if (this.queue.length <= 0) return;
+
+    const row = this.queue.pop();
+
+    await this.pushNewRow(row);
+}
+
 FruitSpawner.prototype.pushNewRow = async function (row) {
     var currentTime = performance.now() / 1000;
     var t = 0.0;
@@ -262,6 +285,9 @@ FruitSpawner.prototype.pushNewRow = async function (row) {
     for (let j = 0; j < row.length; j++) {
         var entity = new pc.Entity();
             var index = row[j];
+
+            if (typeof index === 'undefined') continue;
+
             entity.addComponent('script');
             entity.script.create('fruit');
             entity.script.fruit.speed = 0;
