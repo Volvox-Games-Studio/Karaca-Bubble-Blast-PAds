@@ -17,7 +17,7 @@ FruitGun.prototype.initialize = function () {
     this.spawnPoint = new pc.Entity();
     this.entity.addChild(this.spawnPoint);
     this.spawnPoint.setLocalPosition(0, 1.7, 0);
-    this.fruitIndices = [0, 1, 2, 3, 4, 0, 5, 5, 5]
+    this.fruitIndices = [0, 1, 2, 0, 3, 4, 5, 5]
     this.shootIndex = 0;
 };
 
