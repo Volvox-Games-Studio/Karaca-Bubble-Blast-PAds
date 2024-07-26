@@ -39,20 +39,20 @@ FruitSpawner.prototype.initialize = async function () {
     ];
 
     var initialRows = [
-        [0, undefined, undefined, undefined, undefined, undefined, undefined, 0],
-        [1, undefined, undefined, undefined, undefined, undefined, undefined, 1],
-        [2, undefined, undefined, undefined, undefined, undefined, undefined, 2],
-        [3, undefined, undefined, undefined, undefined, undefined, undefined, 3],
-        [4, undefined, undefined, undefined, undefined, undefined, undefined, 4]
+        [5, undefined, undefined, undefined, undefined, undefined, undefined, 5],
+        [5, undefined, undefined, undefined, undefined, undefined, undefined, 5],
+        [5, undefined, undefined, undefined, undefined, undefined, undefined, 5],
+        [5, undefined, undefined, undefined, undefined, undefined, undefined, 5],
+        [5, undefined, undefined, undefined, undefined, undefined, undefined, 5]
     ];
 
     this.queue = [
-        [4, 4, 4, undefined, undefined, 4, 4, 4],
-        [4, 4, 4, undefined, undefined, 4, 4, 4],
-        [3, 3, 3, undefined, undefined, 3, 3, 3],
-        [2, 2, 2, undefined, undefined, undefined, 2, 2],
-        [1, 1, undefined, undefined, undefined, undefined, 1, 1],
-        [0, 0, undefined, undefined, undefined, undefined, undefined, 0]
+        [5, 5, 5, 5, 5, 5, 5, 5],
+        [5, 0, 1, 2, 5, 3, 4, 5],
+        [5, 0, 1, 2, 5, 3, 4, 5],
+        [5, 0, 1, 2, 5, 3, 4, 5],
+        [5, 0, 1, 2, 5, 3, 4, 5],
+        [5, 0, 1, 2, 5, 3, 4, 5]
     ];
 
     for (let i = initialRows.length - 1; i >= 0; i--) {
