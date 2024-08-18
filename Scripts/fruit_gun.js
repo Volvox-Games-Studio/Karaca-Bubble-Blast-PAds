@@ -31,11 +31,27 @@ FruitGun.prototype.update = function (dt) {
     const position = this.entity.getPosition();
     const deltaX = input.TOUCH_X - position.x;
     const deltaY = input.TOUCH_Y - position.y;
-    const angleInDegrees = Math.atan2(deltaY, deltaX) * (180 / Math.PI) - 90;
 
-    this.direction = new pc.Vec2(deltaX, deltaY);
-    this.direction.normalize();
+    var angleInDegrees = Math.atan2(deltaY, deltaX) * (180 / Math.PI) - 90;
+
+    if (angleInDegrees < -180)
+    {
+        angleInDegrees += 360;
+    }
+
+    if (angleInDegrees > 75)
+    {
+        angleInDegrees = 75;
+    }
+
+    else if (angleInDegrees < -75)
+    {
+        angleInDegrees = -75;
+    }
+
     this.entity.setEulerAngles(0, 0, angleInDegrees);
+    this.direction = this.entity.up.clone();
+    this.direction.normalize();
     this.moveLoadedFruit();
 };
 
