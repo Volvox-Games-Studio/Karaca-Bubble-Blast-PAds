@@ -5,6 +5,7 @@ import * as assets from './assets'
 import * as events from './events'
 import * as ease from './easing'
 import * as tween from './tween'
+import * as random from './random'
 
 
 var FruitGun = pc.createScript('fruitGun');
@@ -17,8 +18,12 @@ FruitGun.prototype.initialize = function () {
     this.spawnPoint = new pc.Entity();
     this.entity.addChild(this.spawnPoint);
     this.spawnPoint.setLocalPosition(0, 1.7, 0);
-    this.fruitIndices = [0, 1, 2, 0, 3, 4, 5, 5]
+    this.fruitIndices = []
     this.shootIndex = 0;
+
+    for (let i = 0; i < 1000; i++) {
+        this.fruitIndices.push(random.range(0, 6));
+    }
 };
 
 // Update function: called every frame

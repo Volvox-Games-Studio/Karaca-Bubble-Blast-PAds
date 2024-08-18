@@ -4,12 +4,15 @@ import * as ease from './easing'
 import * as tween from './tween'
 import * as events from './events'
 import { waitNextFrame } from './async';
+import * as random from './random'
 
 
 var FruitSpawner = pc.createScript('fruitSpawner');
 
 // Initialize function: called when the component is initialized
 FruitSpawner.prototype.initialize = async function () {    
+    this.pushRowEveryShoot = 2;
+    this.shootLeftForPushNewRow = this.pushRowEveryShoot;
     this.y = 8.0
     this.cellSize = 1;
     this.fruits = [
@@ -38,22 +41,19 @@ FruitSpawner.prototype.initialize = async function () {
         [undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined],
     ];
 
-    var initialRows = [
-        [5, undefined, undefined, undefined, undefined, undefined, undefined, 5],
-        [5, undefined, undefined, undefined, undefined, undefined, undefined, 5],
-        [5, undefined, undefined, undefined, undefined, undefined, undefined, 5],
-        [5, undefined, undefined, undefined, undefined, undefined, undefined, 5],
-        [5, undefined, undefined, undefined, undefined, undefined, undefined, 5]
-    ];
+    var initialRows = [];
 
-    this.queue = [
-        [5, 5, 5, 5, 5, 5, 5, 5],
-        [5, 4, 4, 5, 5, 4, 4, 5],
-        [5, 3, 3, 5, 5, 3, 3, 5],
-        [5, 0, 0, 5, 5, 0, 0, 5],
-        [5, 2, 2, 5, 5, 2, 2, 5],
-        [5, 1, 1, 5, 5, 1, 1, 5],
-    ];
+    for (let i = 0; i < 3; i++) {
+        initialRows.push(getRandomRow());
+    }
+
+    this.queue = [];
+
+    for (let i = 0; i < 100; i++) {
+        var row = getRandomRow();
+
+        this.queue.push(row);
+    }
 
     for (let i = initialRows.length - 1; i >= 0; i--) {
         const row = initialRows[i];
@@ -154,7 +154,13 @@ FruitSpawner.prototype.snapFruit = async function (fruit, i, j) {
     this.checkMatches(i, j);
     this.checkFalloff();
 
-    await this.pushNextRowFromQueue();
+    this.shootLeftForPushNewRow -= 1;
+
+    if (this.shootLeftForPushNewRow <= 0)
+    {
+        this.shootLeftForPushNewRow = this.pushRowEveryShoot;
+        await this.pushNextRowFromQueue();
+    }
 
     this.reloadFruitGun();
 }
@@ -305,4 +311,17 @@ FruitSpawner.prototype.pushNewRow = async function (row) {
 
 FruitSpawner.prototype.reloadFruitGun = function () {
     events.FRUIT_GUN.dispatchEvent(new CustomEvent('onReload'));
+}
+
+
+function getRandomRow() {
+    var row = []
+
+    for (let i = 0; i < 8; i++) {
+        var index = random.range(0, 6);
+
+        row.push(index)
+    }
+
+    return row;
 }
