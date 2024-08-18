@@ -11,6 +11,7 @@ export var TOUCH_Y = 0;
 export function onTouchStart(camera, event)
 {
     onTouchMove(camera, event);
+    EVENTS.dispatchEvent(new CustomEvent('touchStart'));
 }
 
 export function onTouchMove(camera, event)

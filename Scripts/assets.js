@@ -10,6 +10,7 @@ export var backgroundSprite;
 export var gridBackgroundSprite;
 export var fruitGunSprite;
 export var fruitPopSprite;
+export var handSprite;
 
 
 export function loadFruitPop(app, callback)
@@ -78,6 +79,16 @@ export function loadFruitSprites(app, callback)
         fruitSprites.push(sprite3);
         fruitSprites.push(sprite4);
         fruitSprites.push(sprite5);
+
+        callback();
+    });
+}
+
+export function loadHandSprite(app, callback)
+{
+    sprites.loadTexture(app, 'hand.png', (texture) => {
+        handSprite = sprites.create(texture, 1.4, 1, new pc.Vec4(0, 0, 1, 1), sprites.ANCHOR_CENTER(), sprites.PIVOT_CENTER());
+        handSprite.element.drawOrder = 1000;
 
         callback();
     });

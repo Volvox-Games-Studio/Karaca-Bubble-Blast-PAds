@@ -2,6 +2,8 @@ import * as pc from 'playcanvas';
 import * as settings from './settings'
 import * as assets from './assets'
 import * as input from './input'
+import * as tween from './tween'
+import * as easing from './easing'
 
 
 // satisfy facebook
@@ -65,7 +67,9 @@ window.addEventListener('resize', () => {
 assets.loadBackgroundSprites(app, () => {
     assets.loadFruitSprites(app, () => {
         assets.loadFruitGunSprite(app, () => {
-            assets.loadFruitPop(app, start);
+            assets.loadFruitPop(app, () => {
+                assets.loadHandSprite(app, start)
+            });
         })  
     })  
 })
@@ -78,6 +82,8 @@ function start()
     var fruitSpawner = createFruitSpawner();
 
     fruitGun.fruitSpawner = fruitSpawner;
+
+    playTutorialHand();
 }
 
 function createBackground()
@@ -120,4 +126,24 @@ function createFruitSpawner()
     app.root.addChild(entity);
 
     return entity.script.fruitSpawner;
+}
+
+async function playTutorialHand()
+{
+    var hand = new pc.Entity();
+
+    hand.addComponent('script');
+    hand.script.create('destroyOnTouch');
+    hand.setPosition(new pc.Vec3(0, -1, 0));
+
+    hand.addChild(assets.handSprite);
+    assets.handSprite.setLocalPosition(new pc.Vec3(0.65, 0, 0));
+
+    app.root.addChild(hand);
+
+    while (true)
+    {
+        await tween.scale(hand, new pc.Vec3(1.5, 1.5, 1.5), 0.25, easing.outSine);
+        await tween.scale(hand, new pc.Vec3(1, 1, 1), 0.25, easing.inSine);
+    }
 }
