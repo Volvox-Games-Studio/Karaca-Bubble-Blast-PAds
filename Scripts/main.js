@@ -7,7 +7,7 @@ import * as easing from './easing'
 
 
 // satisfy facebook
-window.FBPlayableOnCTAClick();
+window.FbPlayableOnCTAClick();
 
 // create an application
 const canvas = document.getElementById('application');

@@ -19,6 +19,8 @@ const copyAssets = (source, dest) => {
         }
 
         files.forEach(file => {
+            if (file == '.DS_Store') return;
+
             const sourceFile = path.join(source, file);
             const destFile = path.join(dest, file);
 
