@@ -19,9 +19,16 @@
     </body>
     <script type="text/javascript">
         window.FbPlayableOnCTAClick = () => { 
-          (typeof FbPlayableAd === 'undefined')
-            ? alert('FbPlayableAd.onCTAClick') 
-            : FbPlayableAd.onCTAClick();
+            if (typeof FbplayableAd === 'undefined')
+            {
+                (typeof FbPlayableAd === 'undefined')
+                    ? alert('FbPlayableAd.onCTAClick') 
+                    : FbPlayableAd.onCTAClick();   
+            }
+            else
+            {
+                FbplayableAd.onCTAClick();
+            }
         }
     </script>
 </html>
