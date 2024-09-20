@@ -34,6 +34,11 @@ app.start();
 settings.setSize(width, height);
 
 const touch = app.touch;
+const mouse = app.mouse;
+
+mouse.on(pc.EVENT_MOUSEDOWN, (event) => input.onTouchStart(camera, event));
+mouse.on(pc.EVENT_MOUSEMOVE, (event) => input.onTouchMove(camera, event));
+mouse.on(pc.EVENT_MOUSEUP, (event) => input.onTouchEnd(camera, event));
 
 touch.on(pc.EVENT_TOUCHSTART, (event) => input.onTouchStart(camera, event));
 touch.on(pc.EVENT_TOUCHMOVE, (event) => input.onTouchMove(camera, event));
