@@ -32,8 +32,8 @@ export function onTouchMove(camera, event)
         y = event.touches[0].y;
     } 
 
-    TOUCH_X = 2 * settings.ORTHO_SIZE * settings.ASPECT_RATIO * ((x / settings.WIDTH) - 0.5) + cameraPos.x;
-    TOUCH_Y = 2 * settings.ORTHO_SIZE * (((settings.HEIGHT - y) / settings.HEIGHT) - 0.5) + cameraPos.y;
+    TOUCH_X = 2 * settings.ORTHO_SIZE * settings.ASPECT_RATIO * ((x / window.innerHeight / settings.ASPECT_RATIO) - 0.5) + cameraPos.x;
+    TOUCH_Y = 2 * settings.ORTHO_SIZE * (((window.innerHeight - y) / window.innerHeight) - 0.5) + cameraPos.y;
 }
 
 export function onTouchEnd(event)

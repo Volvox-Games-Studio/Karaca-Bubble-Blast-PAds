@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        <title>Karaca Bubble Blast Playable Ad</title>
+        <meta charset="utf-8">
+        <meta name="ad.orientation" content="portrait">
+      <script type="module" crossorigin src="assets/index-wimx78gf.js"></script>
+      <link rel="stylesheet" crossorigin href="assets/index-BtqYmlAR.css">
+    </head>
+    <body>
+        <div id="container">
+            <canvas id="application" width=1290 height=2796></canvas>
+        </div>
+    </body>
+    <script type="text/javascript">
+        window.FbPlayableOnCTAClick = () => { 
+            if (typeof FbplayableAd === 'undefined')
+            {
+                (typeof FbPlayableAd === 'undefined')
+                    ? alert('FbPlayableAd.onCTAClick') 
+                    : FbPlayableAd.onCTAClick();   
+            }
+            else
+            {
+                FbplayableAd.onCTAClick();
+            }
+        }
+    </script>
+</html>

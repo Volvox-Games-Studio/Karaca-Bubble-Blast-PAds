@@ -6,9 +6,6 @@ import * as tween from './tween'
 import * as easing from './easing'
 
 
-// satisfy facebook
-window.FbPlayableOnCTAClick();
-
 // create an application
 const canvas = document.getElementById('application');
 const dummyApp = new pc.Application(canvas, {
@@ -18,8 +15,8 @@ const dummyApp = new pc.Application(canvas, {
 dummyApp.setCanvasResolution(pc.RESOLUTION_AUTO);
 dummyApp.setCanvasFillMode(pc.FILLMODE_FILL_WINDOW);
 
-var width = canvas.clientWidth;
-var height = canvas.clientHeight;
+var width = 1080;
+var height = 1920;
 
 settings.setAspectRatio(width / height);
 

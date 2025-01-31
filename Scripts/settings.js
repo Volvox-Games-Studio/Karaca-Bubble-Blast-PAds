@@ -9,7 +9,7 @@ export var ASPECT_RATIO;
 export function setAspectRatio(aspectRatio)
 {
     ASPECT_RATIO = aspectRatio;
-    HEIGHT = 2796;
+    HEIGHT = 1920;
     WIDTH = Math.ceil(HEIGHT * aspectRatio);
 }
 
